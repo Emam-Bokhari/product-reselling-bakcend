@@ -7,6 +7,7 @@ export const districts = [
   'bogura',
   'brahmanbaria',
   'chandpur',
+  'chapainawabganj',
   'chattogram',
   'chuadanga',
   'comilla',
