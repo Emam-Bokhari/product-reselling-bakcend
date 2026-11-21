@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TListing } from './listing.interface';
+import { categories, conditions, districts } from './listing.constant';
 import {
   excludeDeletedAggregation,
   excludeDeletedQuery,
@@ -24,7 +25,7 @@ const listingSchema = new Schema<TListing>(
     condition: {
       type: String,
       enum: {
-        values: ['new', 'likeNew', 'used', 'refurbished'],
+        values: conditions,
         message: '{VALUE} is not a valid condition',
       },
       required: true,
@@ -48,16 +49,7 @@ const listingSchema = new Schema<TListing>(
     category: {
       type: String,
       enum: {
-        values: [
-          'mobiles',
-          'electronics',
-          'vehicles',
-          'property',
-          'home',
-          'pets',
-          'cloths',
-          'sports',
-        ],
+        values: categories,
         message: '{VALUE} is not a valid category',
       },
     },
@@ -68,6 +60,10 @@ const listingSchema = new Schema<TListing>(
     location: {
       type: String,
       trim: true,
+      enum: {
+        values: districts,
+        message: '{VALUE} is not a valid district location',
+      },
       required: true,
     },
     negotiable: {

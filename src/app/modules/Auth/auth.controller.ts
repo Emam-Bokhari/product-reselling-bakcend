@@ -18,10 +18,13 @@ const loginUserController = asyncHandler(async (req, res) => {
   const loginUserPayload = req.body;
   const loginResult = await AuthServices.loginUser(loginUserPayload);
 
+  const roleText =
+    loginResult?.role?.toLowerCase() === 'admin' ? 'Admin' : 'User';
+
   sendResponse(res, {
     success: true,
     statusCode: 201,
-    message: 'User login successfully',
+    message: `${roleText} login successfully`,
     data: loginResult,
   });
 });

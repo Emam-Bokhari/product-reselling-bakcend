@@ -1,24 +1,21 @@
 import { Types } from 'mongoose';
+import {
+  TDistrict,
+  TListingCategory,
+  TListingCondition,
+} from './listing.constant';
 
 export type TListing = {
   title: string;
   description: string;
   price: number;
-  condition: 'new' | 'likeNew' | 'used' | 'refurbished';
+  condition: TListingCondition;
   images: string[];
   userID?: Types.ObjectId;
   status?: 'available' | 'sold';
-  category:
-    | 'mobiles'
-    | 'electronics'
-    | 'vehicles'
-    | 'property'
-    | 'home'
-    | 'pets'
-    | 'cloths'
-    | 'sports';
+  category: TListingCategory;
   brand?: string;
-  location: string;
+  location: TDistrict;
   negotiable?: 'yes' | 'no';
   warranty?: string;
   contactNumber?: string;

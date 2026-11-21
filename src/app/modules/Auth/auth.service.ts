@@ -60,6 +60,7 @@ const loginUser = async (payload: TLoginUser) => {
 
   return {
     token,
+    role: user?.role,
   };
 };
 
