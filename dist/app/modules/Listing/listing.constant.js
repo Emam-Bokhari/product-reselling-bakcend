@@ -10,6 +10,7 @@ exports.districts = [
     'bogura',
     'brahmanbaria',
     'chandpur',
+    'chapainawabganj',
     'chattogram',
     'chuadanga',
     'comilla',
