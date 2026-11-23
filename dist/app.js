@@ -49,11 +49,10 @@ app.use((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
 // app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 app.use((0, cors_1.default)({
     origin: [
-        'https://re-sell-bd-client.vercel.app',
         'https://product-reselling-frontend.vercel.app',
+        'https://re-sell-bd-client.vercel.app',
         'http://localhost:3000',
         'http://localhost:5173',
-        'https://product-reselling-frontend.vercel.app'
     ],
     credentials: true,
 }));

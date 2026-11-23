@@ -40,11 +40,10 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 app.use(
   cors({
     origin: [
-      'https://re-sell-bd-client.vercel.app',
       'https://product-reselling-frontend.vercel.app',
+      'https://re-sell-bd-client.vercel.app',
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://product-reselling-frontend.vercel.app'
     ],
     credentials: true,
   }),
