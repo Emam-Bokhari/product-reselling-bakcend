@@ -30,10 +30,34 @@ const getAllListings = () => __awaiter(void 0, void 0, void 0, function* () {
     return listings;
 });
 const getListingsByCategory = (category) => __awaiter(void 0, void 0, void 0, function* () {
-    const listings = yield listing_model_1.Listing.find({ category });
-    if (listings.length === 0) {
-        throw new HttpError_1.HttpError(404, 'No listing record were found in the database');
-    }
+    const normalized = category.toLowerCase().trim();
+    const aliasMap = {
+        mobile: ['mobiles', 'mobile'],
+        mobiles: ['mobiles', 'mobile'],
+        clothes: ['cloths', 'clothes', 'clothing', 'fashion'],
+        cloths: ['cloths', 'clothes', 'clothing', 'fashion'],
+        clothing: ['cloths', 'clothes', 'clothing', 'fashion'],
+        fashion: ['cloths', 'clothes', 'clothing', 'fashion'],
+        electronics: ['electronics', 'electronic'],
+        electronic: ['electronics', 'electronic'],
+        vehicles: ['vehicles', 'vehicle'],
+        vehicle: ['vehicles', 'vehicle'],
+        property: ['property', 'properties'],
+        properties: ['property', 'properties'],
+        home: ['home'],
+        pets: ['pets', 'pet'],
+        pet: ['pets', 'pet'],
+        sports: ['sports', 'sport'],
+        sport: ['sports', 'sport'],
+    };
+    const matchValues = aliasMap[normalized] || [normalized];
+    const query = {
+        $or: [
+            { category: { $in: matchValues } },
+            { category: { $regex: new RegExp(`^${normalized}`, 'i') } },
+        ],
+    };
+    const listings = yield listing_model_1.Listing.find(query).populate('userID', '_id name identifier role');
     return listings;
 });
 const getListingsBySpecificUser = (identifier) => __awaiter(void 0, void 0, void 0, function* () {

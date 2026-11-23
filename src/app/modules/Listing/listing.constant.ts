@@ -72,12 +72,20 @@ export type TListingCondition = (typeof conditions)[number];
 
 export const categories = [
   'mobiles',
+  'mobile',
   'electronics',
+  'electronic',
   'vehicles',
+  'vehicle',
   'property',
+  'properties',
   'home',
   'pets',
+  'pet',
   'cloths',
+  'clothes',
+  'clothing',
   'sports',
+  'sport',
 ] as const;
 export type TListingCategory = (typeof categories)[number];

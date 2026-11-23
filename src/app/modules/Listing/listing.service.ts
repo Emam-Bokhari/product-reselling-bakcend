@@ -25,10 +25,40 @@ const getAllListings = async () => {
 };
 
 const getListingsByCategory = async (category: string) => {
-  const listings = await Listing.find({ category });
-  if (listings.length === 0) {
-    throw new HttpError(404, 'No listing record were found in the database');
-  }
+  const normalized = category.toLowerCase().trim();
+  const aliasMap: Record<string, string[]> = {
+    mobile: ['mobiles', 'mobile'],
+    mobiles: ['mobiles', 'mobile'],
+    clothes: ['cloths', 'clothes', 'clothing', 'fashion'],
+    cloths: ['cloths', 'clothes', 'clothing', 'fashion'],
+    clothing: ['cloths', 'clothes', 'clothing', 'fashion'],
+    fashion: ['cloths', 'clothes', 'clothing', 'fashion'],
+    electronics: ['electronics', 'electronic'],
+    electronic: ['electronics', 'electronic'],
+    vehicles: ['vehicles', 'vehicle'],
+    vehicle: ['vehicles', 'vehicle'],
+    property: ['property', 'properties'],
+    properties: ['property', 'properties'],
+    home: ['home'],
+    pets: ['pets', 'pet'],
+    pet: ['pets', 'pet'],
+    sports: ['sports', 'sport'],
+    sport: ['sports', 'sport'],
+  };
+
+  const matchValues = aliasMap[normalized] || [normalized];
+  const query = {
+    $or: [
+      { category: { $in: matchValues } },
+      { category: { $regex: new RegExp(`^${normalized}`, 'i') } },
+    ],
+  };
+
+  const listings = await Listing.find(query).populate(
+    'userID',
+    '_id name identifier role',
+  );
+
   return listings;
 };
 

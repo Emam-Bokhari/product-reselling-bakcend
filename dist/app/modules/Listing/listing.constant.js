@@ -70,11 +70,19 @@ exports.districts = [
 exports.conditions = ['new', 'likeNew', 'used', 'refurbished'];
 exports.categories = [
     'mobiles',
+    'mobile',
     'electronics',
+    'electronic',
     'vehicles',
+    'vehicle',
     'property',
+    'properties',
     'home',
     'pets',
+    'pet',
     'cloths',
+    'clothes',
+    'clothing',
     'sports',
+    'sport',
 ];
