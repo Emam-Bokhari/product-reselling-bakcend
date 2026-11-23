@@ -1,5 +1,7 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
+import config from './app/config';
 import router from './app/routes';
 import { globalErrorHandler } from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
@@ -11,6 +13,28 @@ const app: Application = express();
 app.use(express.json());
 // app.use(cors());
 app.use(cookieParser());
+
+// Serverless MongoDB connection handler (prevents buffering timeout on Vercel cold starts)
+let cachedConnection: Promise<typeof mongoose> | null = null;
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  if (mongoose.connection.readyState === 1) {
+    return next();
+  }
+
+  try {
+    if (!cachedConnection || mongoose.connection.readyState === 0) {
+      cachedConnection = mongoose.connect(config.database_url as string, {
+        serverSelectionTimeoutMS: 5000,
+        maxPoolSize: 10,
+      });
+    }
+    await cachedConnection;
+    next();
+  } catch (error) {
+    cachedConnection = null;
+    next(error);
+  }
+});
 
 // app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 app.use(
