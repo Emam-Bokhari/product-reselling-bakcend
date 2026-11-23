@@ -20,6 +20,7 @@ app.use(
       'https://product-reselling-frontend.vercel.app',
       'http://localhost:3000',
       'http://localhost:5173',
+      'https://product-reselling-frontend.vercel.app'
     ],
     credentials: true,
   }),
