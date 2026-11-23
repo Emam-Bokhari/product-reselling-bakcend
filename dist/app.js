@@ -15,7 +15,15 @@ app.use(express_1.default.json());
 // app.use(cors());
 app.use((0, cookie_parser_1.default)());
 // app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
-app.use((0, cors_1.default)({ origin: ['https://re-sell-bd-client.vercel.app'], credentials: true }));
+app.use((0, cors_1.default)({
+    origin: [
+        'https://re-sell-bd-client.vercel.app',
+        'https://product-reselling-frontend.vercel.app',
+        'http://localhost:3000',
+        'http://localhost:5173',
+    ],
+    credentials: true,
+}));
 // application routes
 app.use('/api/v1', routes_1.default);
 // check server health

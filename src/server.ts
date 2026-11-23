@@ -35,3 +35,6 @@ process.on('uncaughtException', () => {
   console.log(`👿 uncaughtExecption is detected, shutting down...`);
   process.exit(1);
 });
+
+export default app;
+

@@ -14,7 +14,15 @@ app.use(cookieParser());
 
 // app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 app.use(
-  cors({ origin: ['https://re-sell-bd-client.vercel.app'], credentials: true }),
+  cors({
+    origin: [
+      'https://re-sell-bd-client.vercel.app',
+      'https://product-reselling-frontend.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:5173',
+    ],
+    credentials: true,
+  }),
 );
 
 // application routes

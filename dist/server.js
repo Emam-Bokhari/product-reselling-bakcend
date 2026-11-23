@@ -45,3 +45,4 @@ process.on('uncaughtException', () => {
     console.log(`👿 uncaughtExecption is detected, shutting down...`);
     process.exit(1);
 });
+exports.default = app_1.default;
